@@ -16,11 +16,11 @@ Black, White = (0, 0, 0), (255, 255, 255)
 
 s = 6
 n = int(pow(2, s))
-t = n * n 
+t = n**2 
 
 lineThickness = 2 
 
-Hilbert = [None for i in range(t)]
+Hilbert = [None for _ in range(t)]
 
 for i in range(t):
     length = Width/n
@@ -39,7 +39,7 @@ while run:
     window.fill(Black)
     clock.tick(fps)
     frame_rate = int(clock.get_fps())
-    pygame.display.set_caption("Hilbert Curve - FPS : {}".format(frame_rate))
+    pygame.display.set_caption(f"Hilbert Curve - FPS : {frame_rate}")
 
     # Handle Events
     for event in pygame.event.get():
@@ -52,7 +52,7 @@ while run:
                 timer = 1
             if event.key == pygame.K_SPACE:
                 toggle_color = not toggle_color
-    
+
     for i in range(timer-1):
         c = pygame.Color(0,0,0)
         c.hsva = (i/10%360, 100, 100, 100)
@@ -62,7 +62,5 @@ while run:
     pygame.display.flip()
 
     timer += increment_speed
-    if timer > t:
-        timer = t
-    
+    timer = min(timer, t)
 pygame.quit()
